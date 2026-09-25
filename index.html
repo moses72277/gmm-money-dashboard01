@@ -1,6 +1,10 @@
-<!DOCTYPE html><html>
+<!DOCTYPE html>
+<html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1"><title>Money Dashboard</title><style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Money Dashboard</title>
+
+<style>
 
 * {
   box-sizing: border-box;
@@ -14,8 +18,6 @@ body {
   min-height: 100vh;
 }
 
-/* HEADER */
-
 h1 {
   text-align: center;
   font-size: 38px;
@@ -23,8 +25,6 @@ h1 {
   color: #201600;
   font-weight: 800;
 }
-
-/* CARDS */
 
 .card {
   background: rgba(255, 252, 235, 0.97);
@@ -34,8 +34,6 @@ h1 {
   box-shadow: 0 10px 28px rgba(70, 45, 0, 0.18);
 }
 
-/* TOP ROW */
-
 .top-row {
   display: flex;
   justify-content: space-between;
@@ -44,8 +42,6 @@ h1 {
   font-size: 14px;
   font-weight: 600;
 }
-
-/* LOCK STATUS */
 
 .lock-status {
   display: inline-flex;
@@ -58,8 +54,6 @@ h1 {
   font-size: 12px;
   font-weight: 800;
 }
-
-/* BALANCE */
 
 .balance {
   font-size: 42px;
@@ -75,8 +69,6 @@ h1 {
   margin-bottom: 20px;
 }
 
-/* BUTTONS */
-
 .btn-row {
   display: flex;
   gap: 12px;
@@ -91,6 +83,7 @@ h1 {
   font-size: 15px;
   color: #241b00;
   box-shadow: 0 4px 10px rgba(170, 120, 0, 0.20);
+  cursor: pointer;
 }
 
 .add-btn {
@@ -102,15 +95,11 @@ h1 {
   color: #292929;
 }
 
-/* GRID */
-
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 15px;
 }
-
-/* ICONS */
 
 .icon {
   width: 52px;
@@ -144,8 +133,6 @@ h1 {
   color: #f7931a;
 }
 
-/* TEXT */
-
 .small-title {
   font-weight: 800;
   font-size: 17px;
@@ -173,13 +160,118 @@ h1 {
   line-height: 1.4;
 }
 
-/* TAX CARD */
-
 .tax-card {
   grid-column: 1 / 3;
 }
 
-/* PHONE */
+
+/* =========================
+   POPUP
+========================= */
+
+.popup {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.popup-box {
+  width: 100%;
+  max-width: 420px;
+  background: white;
+  border-radius: 25px;
+  padding: 24px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+}
+
+.popup-box h2 {
+  margin-top: 0;
+  color: #171200;
+}
+
+.popup-box p {
+  color: #777;
+  font-size: 14px;
+}
+
+.popup-box label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  margin-top: 15px;
+  margin-bottom: 6px;
+}
+
+.popup-box input,
+.popup-box select {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #ddd;
+  border-radius: 13px;
+  font-size: 16px;
+  outline: none;
+}
+
+.popup-box input:focus,
+.popup-box select:focus {
+  border-color: #d89b00;
+}
+
+.popup-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.popup-buttons button {
+  flex: 1;
+  border: none;
+  border-radius: 15px;
+  padding: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background: #eee;
+}
+
+.continue-btn {
+  background: #f5c518;
+  color: #241b00;
+}
+
+
+/* DEMO NOTICE */
+
+.demo-notice {
+  background: #fff4c9;
+  border-radius: 14px;
+  padding: 12px;
+  margin-top: 15px;
+  font-size: 12px;
+  color: #755800;
+}
+
+
+/* SUCCESS MESSAGE */
+
+.message {
+  display: none;
+  margin-top: 15px;
+  padding: 13px;
+  border-radius: 13px;
+  background: #eef9f1;
+  color: #08752b;
+  font-size: 13px;
+  font-weight: 600;
+}
+
 
 @media (max-width: 420px) {
 
@@ -201,122 +293,318 @@ h1 {
 
 }
 
-</style></head><body><h1>Money</h1><!-- MAIN BALANCE --><div class="card">  <div class="top-row"><span>Cash balance</span>
+</style>
+</head>
 
-<span class="lock-status">
-  🔒 Locked
-</span>
+<body>
 
-  </div>  <div class="balance" id="lockedBalance">
+<h1>Money</h1>
+
+
+<!-- MAIN BALANCE -->
+
+<div class="card">
+
+  <div class="top-row">
+
+    <span>Cash balance</span>
+
+    <span class="lock-status">
+      🔒 Locked
+    </span>
+
+  </div>
+
+
+  <div class="balance" id="lockedBalance">
     $1,000,000.00
-  </div>  <div class="locked-info">
+  </div>
+
+
+  <div class="locked-info">
     🔒 Balance locked for this project
-  </div>  <!-- ADD MONEY + WITHDRAW -->  <div class="btn-row"><button class="btn add-btn">
-  ＋ Add money
-</button>
-
-<button class="btn withdraw-btn">
-  − Withdraw
-</button>
-
-  </div></div><!-- FINANCIAL SERVICES --><div class="grid">  <!-- SAVINGS -->  <div class="card"><div class="small-title">
-
-  <span>Savings</span>
-
-  <span class="arrow">›</span>
-
-</div>
+  </div>
 
 
-<div class="icon light-green">
-  $
-</div>
+  <!-- BUTTONS -->
 
+  <div class="btn-row">
 
-<div class="amount">
-  $25,000.00
-</div>
+    <button class="btn add-btn" onclick="openAddMoney()">
+      ＋ Add money
+    </button>
 
+    <button class="btn withdraw-btn" onclick="openWithdraw()">
+      − Withdraw
+    </button>
 
-<div class="sub">
-  Balance
-</div>
-
-  </div>  <!-- BITCOIN -->  <div class="card"><div class="small-title">
-
-  <span>Bitcoin</span>
-
-  <span class="arrow">›</span>
+  </div>
 
 </div>
 
 
-<div class="icon bitcoin">
-  ₿
+
+<!-- FINANCIAL SERVICES -->
+
+<div class="grid">
+
+
+  <!-- SAVINGS -->
+
+  <div class="card">
+
+    <div class="small-title">
+      <span>Savings</span>
+      <span class="arrow">›</span>
+    </div>
+
+    <div class="icon light-green">
+      $
+    </div>
+
+    <div class="amount">
+      $25,000.00
+    </div>
+
+    <div class="sub">
+      Balance
+    </div>
+
+  </div>
+
+
+
+  <!-- BITCOIN -->
+
+  <div class="card">
+
+    <div class="small-title">
+      <span>Bitcoin</span>
+      <span class="arrow">›</span>
+    </div>
+
+    <div class="icon bitcoin">
+      ₿
+    </div>
+
+    <div class="amount">
+      $16,711.00
+    </div>
+
+    <div class="sub">
+      ↑ 0.00% today
+    </div>
+
+  </div>
+
+
+
+  <!-- PAYCHECKS -->
+
+  <div class="card">
+
+    <div class="small-title">
+      <span>Paychecks</span>
+      <span class="arrow">›</span>
+    </div>
+
+    <div class="icon green">
+      ↓
+    </div>
+
+    <div class="sub">
+      Get direct deposits
+      <br>
+      early
+    </div>
+
+  </div>
+
+
+
+  <!-- STOCKS -->
+
+  <div class="card">
+
+    <div class="small-title">
+      <span>Stocks</span>
+      <span class="arrow">›</span>
+    </div>
+
+    <div class="icon purple">
+      ~
+    </div>
+
+    <div class="sub">
+      Invest with $1
+    </div>
+
+  </div>
+
+
+
+  <!-- TAXES -->
+
+  <div class="card tax-card">
+
+    <div class="small-title">
+      <span>Taxes</span>
+      <span class="arrow">›</span>
+    </div>
+
+    <div class="icon purple">
+      ⌂
+    </div>
+
+  </div>
+
 </div>
 
 
-<div class="amount">
-  $16,711.00
+
+<!-- =========================
+     ADD MONEY POPUP
+========================= -->
+
+<div class="popup" id="addPopup">
+
+  <div class="popup-box">
+
+    <h2>＋ Add money</h2>
+
+    <p>
+      Enter the amount you would like to add to this demo account.
+    </p>
+
+
+    <label>Amount</label>
+
+    <input
+      type="number"
+      id="addAmount"
+      placeholder="Enter amount"
+    >
+
+
+    <label>Payment method</label>
+
+    <select id="paymentMethod">
+
+      <option>Select payment method</option>
+
+      <option>Bank transfer</option>
+
+      <option>Debit card</option>
+
+      <option>Cash deposit</option>
+
+    </select>
+
+
+    <div class="demo-notice">
+      🔒 Demo mode: no real money will be deposited and your locked balance will not change.
+    </div>
+
+
+    <div class="popup-buttons">
+
+      <button
+        class="cancel-btn"
+        onclick="closePopups()">
+        Cancel
+      </button>
+
+      <button
+        class="continue-btn"
+        onclick="addMoneyDemo()">
+        Continue
+      </button>
+
+    </div>
+
+
+    <div class="message" id="addMessage">
+      Add-money request created for this demo. No real transaction was made.
+    </div>
+
+  </div>
+
 </div>
 
 
-<div class="sub">
-  ↑ 0.00% today
+
+<!-- =========================
+     WITHDRAW POPUP
+========================= -->
+
+<div class="popup" id="withdrawPopup">
+
+  <div class="popup-box">
+
+    <h2>− Withdraw</h2>
+
+    <p>
+      Enter the amount you would like to withdraw.
+    </p>
+
+
+    <label>Amount</label>
+
+    <input
+      type="number"
+      id="withdrawAmount"
+      placeholder="Enter amount"
+    >
+
+
+    <label>Withdrawal destination</label>
+
+    <select id="withdrawMethod">
+
+      <option>Select destination</option>
+
+      <option>Bank account</option>
+
+      <option>Debit card</option>
+
+      <option>Cash withdrawal</option>
+
+    </select>
+
+
+    <div class="demo-notice">
+      🔒 Demo mode: withdrawals are disabled and no money will be sent.
+    </div>
+
+
+    <div class="popup-buttons">
+
+      <button
+        class="cancel-btn"
+        onclick="closePopups()">
+        Cancel
+      </button>
+
+      <button
+        class="continue-btn"
+        onclick="withdrawDemo()">
+        Continue
+      </button>
+
+    </div>
+
+
+    <div class="message" id="withdrawMessage">
+      Withdrawal request recorded for this demo. No money was sent.
+    </div>
+
+  </div>
+
 </div>
 
-  </div>  <!-- PAYCHECKS -->  <div class="card"><div class="small-title">
-
-  <span>Paychecks</span>
-
-  <span class="arrow">›</span>
-
-</div>
 
 
-<div class="icon green">
-  ↓
-</div>
-
-
-<div class="sub">
-  Get direct deposits
-  <br>
-  early
-</div>
-
-  </div>  <!-- STOCKS -->  <div class="card"><div class="small-title">
-
-  <span>Stocks</span>
-
-  <span class="arrow">›</span>
-
-</div>
-
-
-<div class="icon purple">
-  ~
-</div>
-
-
-<div class="sub">
-  Invest with $1
-</div>
-
-  </div>  <!-- TAXES -->  <div class="card tax-card"><div class="small-title">
-
-  <span>Taxes</span>
-
-  <span class="arrow">›</span>
-
-</div>
-
-
-<div class="icon purple">
-  ⌂
-</div>
-
-  </div></div><script>
+<script>
 
 /*
 =================================================
@@ -344,5 +632,87 @@ document.getElementById("lockedBalance").textContent =
 
   });
 
-</script></body>
-  </html>
+
+
+/* =========================
+   OPEN ADD MONEY
+========================= */
+
+function openAddMoney() {
+
+  document.getElementById("addPopup").style.display = "flex";
+
+}
+
+
+/* =========================
+   OPEN WITHDRAW
+========================= */
+
+function openWithdraw() {
+
+  document.getElementById("withdrawPopup").style.display = "flex";
+
+}
+
+
+/* =========================
+   CLOSE POPUPS
+========================= */
+
+function closePopups() {
+
+  document.getElementById("addPopup").style.display = "none";
+
+  document.getElementById("withdrawPopup").style.display = "none";
+
+}
+
+
+/* =========================
+   ADD MONEY DEMO
+========================= */
+
+function addMoneyDemo() {
+
+  let amount =
+    document.getElementById("addAmount").value;
+
+  if (amount === "" || Number(amount) <= 0) {
+
+    alert("Please enter a valid amount.");
+
+    return;
+
+  }
+
+  document.getElementById("addMessage").style.display = "block";
+
+}
+
+
+/* =========================
+   WITHDRAW DEMO
+========================= */
+
+function withdrawDemo() {
+
+  let amount =
+    document.getElementById("withdrawAmount").value;
+
+  if (amount === "" || Number(amount) <= 0) {
+
+    alert("Please enter a valid withdrawal amount.");
+
+    return;
+
+  }
+
+  document.getElementById("withdrawMessage").style.display = "block";
+
+}
+
+</script>
+
+</body>
+</html>
