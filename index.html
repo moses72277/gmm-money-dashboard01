@@ -1,1 +1,348 @@
+<!DOCTYPE html><html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>Money Dashboard</title><style>
 
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, #f5c518, #d89b00, #ffdc55);
+  padding: 15px;
+  margin: 0;
+  min-height: 100vh;
+}
+
+/* HEADER */
+
+h1 {
+  text-align: center;
+  font-size: 38px;
+  margin: 12px 0 25px;
+  color: #201600;
+  font-weight: 800;
+}
+
+/* CARDS */
+
+.card {
+  background: rgba(255, 252, 235, 0.97);
+  border-radius: 24px;
+  padding: 20px;
+  margin-bottom: 15px;
+  box-shadow: 0 10px 28px rgba(70, 45, 0, 0.18);
+}
+
+/* TOP ROW */
+
+.top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #555;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* LOCK STATUS */
+
+.lock-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #fff1bf;
+  color: #8a6100;
+  padding: 7px 11px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+/* BALANCE */
+
+.balance {
+  font-size: 42px;
+  font-weight: 800;
+  margin: 18px 0 7px;
+  color: #171200;
+  letter-spacing: -1px;
+}
+
+.locked-info {
+  color: #777;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+/* BUTTONS */
+
+.btn-row {
+  display: flex;
+  gap: 12px;
+}
+
+.btn {
+  flex: 1;
+  border: none;
+  border-radius: 28px;
+  padding: 15px 10px;
+  font-weight: 700;
+  font-size: 15px;
+  color: #241b00;
+  box-shadow: 0 4px 10px rgba(170, 120, 0, 0.20);
+}
+
+.add-btn {
+  background: linear-gradient(135deg, #ffd83d, #efb900);
+}
+
+.withdraw-btn {
+  background: #f0eee7;
+  color: #292929;
+}
+
+/* GRID */
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+/* ICONS */
+
+.icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 18px 0;
+}
+
+.green {
+  background: #00d64f;
+  color: white;
+}
+
+.purple {
+  background: #8a4de8;
+  color: white;
+}
+
+.light-green {
+  background: #dff8e7;
+  color: #00a63d;
+}
+
+.bitcoin {
+  background: #f1f1f1;
+  color: #f7931a;
+}
+
+/* TEXT */
+
+.small-title {
+  font-weight: 800;
+  font-size: 17px;
+  display: flex;
+  justify-content: space-between;
+  color: #171717;
+}
+
+.arrow {
+  color: #999;
+  font-size: 22px;
+}
+
+.amount {
+  font-weight: 800;
+  font-size: 21px;
+  margin-top: 5px;
+  color: #171717;
+}
+
+.sub {
+  color: #777;
+  font-size: 13px;
+  margin-top: 5px;
+  line-height: 1.4;
+}
+
+/* TAX CARD */
+
+.tax-card {
+  grid-column: 1 / 3;
+}
+
+/* PHONE */
+
+@media (max-width: 420px) {
+
+  .balance {
+    font-size: 34px;
+  }
+
+  h1 {
+    font-size: 34px;
+  }
+
+  .card {
+    padding: 17px;
+  }
+
+  .btn {
+    font-size: 14px;
+  }
+
+}
+
+</style></head><body><h1>Money</h1><!-- MAIN BALANCE --><div class="card">  <div class="top-row"><span>Cash balance</span>
+
+<span class="lock-status">
+  🔒 Locked
+</span>
+
+  </div>  <div class="balance" id="lockedBalance">
+    $1,000,000.00
+  </div>  <div class="locked-info">
+    🔒 Balance locked for this project
+  </div>  <!-- ADD MONEY + WITHDRAW -->  <div class="btn-row"><button class="btn add-btn">
+  ＋ Add money
+</button>
+
+<button class="btn withdraw-btn">
+  − Withdraw
+</button>
+
+  </div></div><!-- FINANCIAL SERVICES --><div class="grid">  <!-- SAVINGS -->  <div class="card"><div class="small-title">
+
+  <span>Savings</span>
+
+  <span class="arrow">›</span>
+
+</div>
+
+
+<div class="icon light-green">
+  $
+</div>
+
+
+<div class="amount">
+  $25,000.00
+</div>
+
+
+<div class="sub">
+  Balance
+</div>
+
+  </div>  <!-- BITCOIN -->  <div class="card"><div class="small-title">
+
+  <span>Bitcoin</span>
+
+  <span class="arrow">›</span>
+
+</div>
+
+
+<div class="icon bitcoin">
+  ₿
+</div>
+
+
+<div class="amount">
+  $16,711.00
+</div>
+
+
+<div class="sub">
+  ↑ 0.00% today
+</div>
+
+  </div>  <!-- PAYCHECKS -->  <div class="card"><div class="small-title">
+
+  <span>Paychecks</span>
+
+  <span class="arrow">›</span>
+
+</div>
+
+
+<div class="icon green">
+  ↓
+</div>
+
+
+<div class="sub">
+  Get direct deposits
+  <br>
+  early
+</div>
+
+  </div>  <!-- STOCKS -->  <div class="card"><div class="small-title">
+
+  <span>Stocks</span>
+
+  <span class="arrow">›</span>
+
+</div>
+
+
+<div class="icon purple">
+  ~
+</div>
+
+
+<div class="sub">
+  Invest with $1
+</div>
+
+  </div>  <!-- TAXES -->  <div class="card tax-card"><div class="small-title">
+
+  <span>Taxes</span>
+
+  <span class="arrow">›</span>
+
+</div>
+
+
+<div class="icon purple">
+  ⌂
+</div>
+
+  </div></div><script>
+
+/*
+=================================================
+MONTHLY BALANCE
+=================================================
+
+Change ONLY this number every month.
+
+1,000,000 = $1,000,000
+1,500,000 = $1,500,000
+2,000,000 = $2,000,000
+*/
+
+let monthlyBalance = 1000000;
+
+
+/* DISPLAY BALANCE */
+
+document.getElementById("lockedBalance").textContent =
+  "$" + monthlyBalance.toLocaleString("en-US", {
+
+    minimumFractionDigits: 2,
+
+    maximumFractionDigits: 2
+
+  });
+
+</script></body>
+  </html>
